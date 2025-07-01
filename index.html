@@ -89,6 +89,13 @@
         #analysisModal {
             transition: opacity 0.3s ease;
         }
+        .reference-list li {
+            margin-bottom: 0.5rem;
+        }
+        .reference-list a {
+            color: #FF4E50;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -198,6 +205,16 @@
                 <button id="summarizeLegacyBtn" class="action-btn" data-lang-key="legacyButton"></button>
                 <div id="legacyResponse" class="mt-6 text-left max-w-3xl mx-auto p-4 bg-gray-50 rounded-lg" style="display: none;"></div>
             </section>
+
+            <section id="references" class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold mb-4" data-lang-key="referencesTitle"></h2>
+                <div class="text-gray-600 text-left max-w-4xl mx-auto">
+                    <p class="mb-4" data-lang-key="referencesIntro"></p>
+                    <ul class="list-disc list-inside reference-list" data-lang-key="referencesList">
+                        <!-- Content will be injected by JavaScript -->
+                    </ul>
+                </div>
+            </section>
         </main>
         
         <footer class="text-center mt-12 pt-8 border-t border-gray-300">
@@ -242,12 +259,20 @@
                 financialsTitle: "O Prejuízo Financeiro",
                 financialsParagraph: "Enquanto a Petrobras era o núcleo, a corrupção se estendeu a vários outros projetos estatais. Este gráfico de barras mostra os fundos desviados em algumas das áreas mais afetadas.",
                 perceptionTitle: "Opinião Pública e Divisão",
-                perceptionParagraph: "Inicialmente, a investigação teve apoio público massivo. Com o tempo, à medida que se tornava mais politizada e seus métodos questionados, a opinião pública ficou mais dividida.",
+                perceptionParagraph: "Inicialmente, a investigação teve apoio público massivo. Com o tempo, à medida que se tornava mais politizada e seus métodos questionados, a opinião pública ficou mais dividida. Os dados do gráfico representam a tendência observada em diversas pesquisas de institutos como Datafolha e Paraná Pesquisas ao longo dos anos. Veja a seção de referências para mais detalhes.",
                 internationalTitle: "Além do Brasil: Um Escândalo Continental",
                 internationalParagraph: "Os esquemas, especialmente os da Odebrecht, não se limitaram ao Brasil, desencadeando investigações em toda a América Latina e África.",
                 legacyTitle: "O Legado da Operação",
                 legacyParagraph: "O impacto da Lava Jato é vasto e controverso. Para obter uma perspectiva equilibrada sobre suas consequências, clique no botão para ler um resumo.",
                 legacyButton: "✨ Ler Resumo do Legado",
+                referencesTitle: "Fontes e Referências",
+                referencesIntro: "As informações e dados apresentados neste infográfico foram sintetizados a partir de relatórios da imprensa e de pesquisas de opinião pública de institutos de credibilidade. Os dados do gráfico 'Opinião Pública e Divisão' são uma representação da tendência geral, não de uma única pesquisa contínua. Fontes principais incluem:",
+                referencesListContent: `
+                    <li><strong>Datafolha:</strong> Várias pesquisas sobre a aprovação da Lava Jato e a percepção de seus atores. Exemplo: "Aprovação da Lava Jato cai e atinge o menor nível, mostra Datafolha" (2019).</li>
+                    <li><strong>Paraná Pesquisas:</strong> Acompanhamento regular da opinião pública sobre a operação e seus desdobramentos.</li>
+                    <li><strong>Relatórios da Polícia Federal e do Ministério Público Federal:</strong> Documentos oficiais que basearam as acusações e detalharam os valores recuperados.</li>
+                    <li><strong>Imprensa Nacional e Internacional:</strong> Cobertura jornalística contínua de veículos como Folha de S.Paulo, O Estado de S. Paulo, O Globo, The Guardian, e The New York Times.</li>
+                `,
                 footerText: "Infográfico criado para fins ilustrativos. Os dados são representativos e sintetizados de relatórios públicos sobre a Operação Lava Jato.",
                 modalTitle: "Análise dos Atores",
                 analysisText: `Com base nos dados fornecidos (Executivos de Empresas: 45%, Políticos: 35%, Doleiros: 15%, Funcionários Públicos: 5%), a análise concisa é a seguinte:<br><br><strong>Análise da Distribuição dos Acusados na Lava Jato: O Nexus Corporativo-Político</strong><br><br>Os dados sobre a distribuição dos acusados na Operação Lava Jato revelam a essência do escândalo que marcou o Brasil: a forte interconexão e dependência mútua entre as esferas corporativa e política na prática da corrupção.<br><br>Com <strong>45% dos acusados sendo executivos de empresas</strong> e <strong>35% políticos</strong>, fica evidente que a Lava Jato desnudou, acima de tudo, um esquema sistêmico onde o financiamento ilegal (e as propinas) por parte do setor privado alimentava o caixa da política (partidos e indivíduos), em troca de favores como contratos superfaturados, legislações específicas e proteção. Os executivos representam o lado que fornecia os recursos ilícitos, enquanto os políticos constituíam o elo no poder público que facilitava e recebia.<br><br>A presença significativa de <strong>doleiros (15%)</strong> sublinha a sofisticação da lavagem de dinheiro e da movimentação financeira ilegal necessária para operacionalizar esse esquema. Eles eram os arquitetos financeiros que permitiam que o dinheiro saísse das empresas, passasse por contas offshore e chegasse aos destinatários finais sem deixar rastros óbvios.<br><br>A participação de <strong>funcionários públicos (5%)</strong> indica que a corrupção não estava restrita aos altos escalões políticos, mas também envolvia agentes dentro da estrutura estatal, possivelmente em papéis técnicos ou administrativos, cooptados para facilitar ou ignorar as ilicitudes em processos como licitações e fiscalização.<br><br>Em suma, esta distribuição de acusados aponta para um modelo de corrupção profundamente enraizado que não era apenas estatal ou apenas empresarial, mas sim um <strong>pacto corrupto e bidirecional</strong> entre os grandes interesses econômicos e o poder político. A Lava Jato, através desses números, demonstra que a dinâmica central do escândalo foi a simbiose ilícita entre grandes corporações e a classe política em busca de benefícios mútuos às custas do Estado e da sociedade.`,
@@ -260,39 +285,58 @@
             },
             en: {
                 mainTitle: "OPERATION CAR WASH",
-                mainSubtitle: "Dissecting the Scandal That Shook a Nation",
+                mainSubtitle: "Dissecting the Scandal that Shook a Nation",
                 introTitle: "The Epicenter: A Staggering Scale of Corruption",
-                introParagraph: "What began as a money-laundering investigation in 2014 spiraled into Brazil's largest-ever corruption probe, uncovering a deeply entrenched system of kickbacks involving the state-run oil giant Petrobras, major construction firms, and high-level politicians.",
+                introParagraph: "What began as a money laundering investigation in 2014 evolved into the largest corruption probe in Brazil's history, uncovering a deeply entrenched bribery system involving the state oil company Petrobras, major construction firms, and high-level politicians.",
                 introKPI: "in Bribes Uncovered at Petrobras Alone",
-                introKPISubtext: "(Approximate value as estimated by federal prosecutors)",
-                playersTitle: "The Key Players",
-                playersParagraph1: "The investigation implicated a wide array of individuals across different sectors. Politicians from multiple parties were accused of accepting bribes in exchange for awarding contracts to construction companies at inflated prices. Business executives orchestrated the schemes, while money launderers helped hide the illicit funds.",
-                playersParagraph2: "The chart to the right illustrates the composition of the individuals formally charged during the investigation's peak phases. Click the button below for a deeper analysis.",
+                introKPISubtext: "(Estimated amount according to federal prosecutors)",
+                playersTitle: "The Main Players",
+                playersParagraph1: "The investigation implicated a wide range of individuals across different sectors. Politicians from multiple parties were accused of taking bribes in exchange for overpriced contracts with construction companies. Company executives orchestrated the schemes, while money dealers helped to hide the illicit funds.",
+                playersParagraph2: "The chart beside illustrates the composition of individuals formally charged during the investigation’s peak phases. Click the button below for a deeper analysis.",
                 playersButton: "✨ Read Analysis",
-                timelineTitle: "A Nation-Defining Timeline",
+                timelineTitle: "A Defining Timeline",
                 timeline1: "Operation Car Wash is officially launched.",
-                timeline2: "The first wave of arrests targets executives from Brazil's largest construction companies.",
-                timeline3: "Former President Lula is detained for questioning, signaling the probe's reach to the highest political levels.",
-                timeline4: "President Dilma Rousseff is impeached, a process partially fueled by the political instability created by the scandal.",
-                timeline5: "Former President Lula is convicted on corruption and money laundering charges.",
-                timeline6: "The main task force in Curitiba is officially disbanded.",
+                timeline2: "First wave of arrests of executives from major construction firms.",
+                timeline3: "Former President Lula is brought in for questioning, highlighting the investigation’s reach.",
+                timeline4: "President Dilma Rousseff is impeached, a process partially driven by the scandal’s political fallout.",
+                timeline5: "Former President Lula is convicted for corruption and money laundering.",
+                timeline6: "The main task force in Curitiba is officially dismantled.",
                 financialsTitle: "The Financial Toll",
-                financialsParagraph: "While Petrobras was the scheme's nucleus, the corruption extended to numerous other state-controlled projects. This bar chart shows the estimated funds diverted across some of the most affected areas.",
-                perceptionTitle: "Public Opinion & Division",
-                perceptionParagraph: "Initially, the investigation received overwhelming public support. Over time, as the probe became increasingly politicized and its methods questioned, public opinion grew more divided.",
+                financialsParagraph: "While Petrobras was the core, corruption extended to several other state-led projects. This bar chart shows the funds embezzled across some of the most affected areas.",
+                perceptionTitle: "Public Opinion and Division",
+                perceptionParagraph: "Initially, the investigation received massive public support. Over time, as it became more politicized and its methods were questioned, public opinion became more divided. The chart data represents the trend observed in various polls from institutes like Datafolha and Paraná Pesquisas over the years. See the references section for more details.",
                 internationalTitle: "Beyond Brazil: A Continental Scandal",
-                internationalParagraph: "The schemes, particularly those by Odebrecht, were not confined to Brazil, triggering investigations across Latin America and Africa.",
-                legacyTitle: "The Operation's Legacy",
-                legacyParagraph: "The impact of Operation Car Wash is vast and controversial. For a balanced perspective on its consequences, click the button to read a summary.",
+                internationalParagraph: "The schemes—especially those tied to Odebrecht—weren’t confined to Brazil, sparking investigations across Latin America and Africa.",
+                legacyTitle: "The Legacy of the Operation",
+                legacyParagraph: "Operation Car Wash’s impact is vast and controversial. For a balanced perspective on its consequences, click the button to read a summary.",
                 legacyButton: "✨ Read Legacy Summary",
+                referencesTitle: "Sources and References",
+                referencesIntro: "The information and data presented in this infographic were synthesized from press reports and public opinion polls from credible institutes. The data in the 'Public Opinion and Division' chart is a representation of the general trend, not from a single continuous poll. Main sources include:",
+                referencesListContent: `
+                    <li><strong>Datafolha:</strong> Various polls on the approval of Operation Car Wash and the perception of its actors. Example: "Approval of Car Wash falls and reaches lowest level, shows Datafolha" (2019).</li>
+                    <li><strong>Paraná Pesquisas:</strong> Regular monitoring of public opinion on the operation and its developments.</li>
+                    <li><strong>Federal Police and Federal Public Prosecutor's Office Reports:</strong> Official documents that formed the basis of the accusations and detailed the recovered amounts.</li>
+                    <li><strong>National and International Press:</strong> Continuous journalistic coverage from outlets such as Folha de S.Paulo, O Estado de S. Paulo, O Globo, The Guardian, and The New York Times.</li>
+                `,
                 footerText: "Infographic created for illustrative purposes. Data is representative and synthesized from public reports on Operation Car Wash.",
-                modalTitle: "Analysis of the Players",
-                analysisText: `Based on the provided data (Business Executives: 45%, Politicians: 35%, Money Launderers: 15%, Public Officials: 5%), the concise analysis is as follows:<br><br><strong>Analysis of the Distribution of the Accused in Car Wash: The Corporate-Political Nexus</strong><br><br>The data on the distribution of the accused in Operation Car Wash reveals the essence of the scandal that marked Brazil: the strong interconnection and mutual dependence between the corporate and political spheres in the practice of corruption.<br><br>With <strong>45% of the accused being business executives</strong> and <strong>35% politicians</strong>, it is clear that Car Wash primarily uncovered a systemic scheme where illegal financing (and bribes) from the private sector fueled the coffers of politics (parties and individuals), in exchange for favors such as inflated contracts, specific legislation, and protection. The executives represent the side that provided the illicit resources, while the politicians constituted the link in public power that facilitated and received them.<br><br>The significant presence of <strong>money launderers (15%)</strong> underscores the sophistication of the money laundering and illegal financial transactions necessary to operate this scheme. They were the financial architects who allowed money to leave companies, pass through offshore accounts, and reach the final recipients without leaving obvious traces.<br><br>The participation of <strong>public officials (5%)</strong> indicates that corruption was not restricted to the high political echelons but also involved agents within the state structure, possibly in technical or administrative roles, co-opted to facilitate or ignore illegalities in processes such as bidding and oversight.<br><br>In summary, this distribution of the accused points to a deeply rooted model of corruption that was not just state-run or just corporate, but rather a <strong>corrupt and bidirectional pact</strong> between major economic interests and political power. Car Wash, through these numbers, demonstrates that the central dynamic of the scandal was the illicit symbiosis between large corporations and the political class in search of mutual benefits at the expense of the State and society.`,
-                legacyText: `As a historian specializing in modern Brazil, Operation Car Wash (initiated in 2014) presents an intricate and multifaceted legacy that requires careful and balanced analysis.<br><br><strong>Successes in Combating Corruption:</strong><br><br>One of the undeniable aspects of the Car Wash legacy is its unprecedented success in uncovering and punishing large-scale corruption schemes in Brazil. The operation revealed the depth and sophistication of corrupt practices involving state-owned enterprises (mainly Petrobras), large construction companies, and the political system at various levels. Using tools such as plea bargains and international cooperation, prosecutors and judges obtained confessions, recovered billions of reais in diverted funds, and led to the conviction of prominent figures in politics and business. In this sense, Car Wash raised the level of public awareness about corruption and demonstrated the possibility of holding the powerful accountable, a rare feat in recent Brazilian history.<br><br><strong>Controversies over Methods and Judicial Activism:</strong><br><br>On the other hand, the operation generated substantial controversies regarding its methods and the perception of judicial activism. Critics point to the extensive and sometimes questionable use of prolonged pre-trial detentions as a means of obtaining plea bargains. The selective leaking of information to the media was also a frequently criticized tactic, on the grounds of pre-judging the accused and compromising due process. The main controversy, however, lies in accusations of judicial activism and partiality, especially directed at then-judge Sergio Moro. Decisions such as the release of phone recordings involving the then-President of the Republic and the coercive questioning of former President Lula, as well as sentences later annulled by the Supreme Federal Court for lack of jurisdiction or suspicion, raised serious concerns about respect for individual guarantees, due process, and the impartiality of the justice system. It is argued that, in the impetus to combat corruption, the operation sometimes exceeded the limits of its legal authority, entering political territory and weakening the very legal structure it was supposed to defend.<br><br><strong>Long-Term Political and Economic Impact:</strong><br><br>The political impact of Car Wash was seismic. The operation contributed to the destabilization of traditional parties, the downfall of important political figures (including the imprisonment of a former president), and a deep public skepticism towards the political class. This scenario was a relevant factor in the rise of anti-establishment forces and the extreme political polarization that marked the following years.<br><br>Economically, the legacy is more complex and debated. The operation exposed practices that distorted the market and harmed competition. However, the way Car Wash affected large companies, especially in the construction and oil and gas sectors, led to the paralysis of works, job losses, and a significant reduction in private investment, contributing to the economic recession and instability. Entire companies, which employed thousands of people, were severely impacted, sometimes irreversibly, without effective mechanisms to punish individuals without destroying the legal entities being fully developed or applied.<br><br><strong>Conclusion:</strong><br><br>In short, the legacy of Operation Car Wash is profoundly ambivalent. On one hand, it was a milestone in the fight against systemic corruption in Brazil, exposing and punishing practices previously treated with impunity and increasing public awareness. On the other, its methods and the perception of judicial activism raised serious concerns about respect for the rule of law and democratic guarantees, generating a climate of political and economic instability whose consequences extend to this day. From a historical perspective, Car Wash represents a period of intense institutional crisis that reconfigured the Brazilian political and social landscape, whose long-term effects are still unfolding and being analyzed.`,
+                modalTitle: "Actor Analysis",
+                analysisText: "Based on the provided data (Company Executives: 45%, Politicians: 35%, Money Dealers: 15%, Public Officials: 5%), the concise analysis is as follows:<br><br><strong>Analysis of the Accused Distribution in Operation Car Wash: The Corporate-Political Nexus</strong><br><br>The data on those accused in Operation Car Wash reveals the scandal’s core: the strong interconnection and mutual dependence between corporate and political spheres in corrupt practices.<br><br>With <strong>45% of the accused being company executives</strong> and <strong>35% politicians</strong>, it becomes evident that Car Wash uncovered a systemic scheme where illegal financing (bribes) from the private sector fueled political coffers (parties and individuals) in exchange for favors such as overpriced contracts, tailored legislation, and protection. Executives represented the source of illicit funds, while politicians formed the public power link that facilitated and received them.<br><br>The significant presence of <strong>money dealers (15%)</strong> underlines the sophistication of money laundering and financial maneuvering necessary to run the scheme. They were the financial architects enabling funds to leave companies, pass through offshore accounts, and reach end recipients without leaving obvious traces.<br><br>The participation of <strong>public officials (5%)</strong> indicates that corruption was not restricted to high-level politicians, but also involved state employees—possibly in technical or administrative roles—co-opted to enable or overlook irregularities in procedures like bidding and oversight.<br><br>In short, this distribution points to a deeply rooted corruption model that was neither purely state-based nor exclusively corporate, but rather a <strong>corrupt and bidirectional pact</strong> between powerful economic interests and political elites. Car Wash, through these numbers, demonstrates that the scandal’s core dynamic was the illicit symbiosis between large corporations and the political class seeking mutual benefits at the expense of the state and society.",
+                legacyText: "As a historian specializing in modern Brazil, Operation Car Wash (launched in 2014) presents a complex and multifaceted legacy that requires careful and balanced analysis.<br><br><strong>Successes in Combating Corruption:</strong><br><br>One undeniable aspect of Car Wash's legacy is its unprecedented success in uncovering and prosecuting large-scale corruption in Brazil. The operation revealed the depth and sophistication of corrupt practices involving state-owned enterprises (primarily Petrobras), major construction companies, and the political system at multiple levels. Through tools like plea bargaining and international cooperation, prosecutors and judges obtained confessions, recovered billions in diverted funds, and secured convictions of prominent political and business figures. In this regard, Car Wash elevated public awareness of corruption and proved that even the powerful could be held accountable—an uncommon achievement in Brazil’s recent history.<br><br><strong>Controversies over Methods and Judicial Activism:</strong><br><br>On the other hand, the operation generated substantial controversy over its methods and perceived judicial activism. Critics pointed to the extensive and, at times, questionable use of prolonged preventive detention to obtain confessions. The selective leaking of information to the media was also a commonly criticized tactic, argued to pre-judge defendants and compromise due process. The main controversy, however, lies in accusations of judicial activism and bias—particularly against former judge Sergio Moro. Decisions like the release of wiretaps involving the then-President of the Republic and the coercive questioning of former President Lula—along with rulings later overturned by the Supreme Court due to jurisdiction or suspicion—raised serious concerns about respect for individual rights, legal guarantees, and judicial impartiality. Critics argue that in the zeal to combat corruption, the operation at times overstepped legal boundaries, venturing into political territory and weakening the legal framework it aimed to uphold.<br><br><strong>Long-Term Political and Economic Impact:</strong><br><br>The political impact of Car Wash was seismic. It contributed to the destabilization of traditional parties, the downfall of major political figures (including the imprisonment of a former president), and deepened public distrust in politicians. This environment helped fuel the rise of anti-establishment movements and the extreme political polarization that followed.<br><br>Economically, the legacy is more complex and debated. The operation exposed practices that distorted markets and harmed fair competition. However, the way it impacted large companies—especially in construction and oil & gas—led to project suspensions, job losses, and a significant drop in private investment, contributing to economic recession and instability. Entire companies employing thousands were severely impacted, sometimes irreversibly, without fully developed or applied mechanisms to punish individuals without destroying legal entities.<br><br><strong>Conclusion:</strong><br><br>In summary, Operation Car Wash’s legacy is profoundly ambivalent. On one hand, it was a milestone in fighting systemic corruption in Brazil, exposing and punishing practices previously shrouded in impunity and raising public awareness. On the other, its methods and perception of judicial overreach sparked serious concerns about the rule of law and democratic safeguards, generating political and economic instability with lasting consequences. From a historical perspective, Car Wash represents a period of intense institutional crisis that reshaped Brazil’s political and social landscape—its long-term effects still unfolding and subject to ongoing analysis.",
                 charts: {
-                    players: { label: 'Implicated Individuals by Category', labels: ['Business Executives', 'Politicians', 'Money Launderers', 'Public Officials'] },
-                    financials: { label: 'Diverted Funds (R$ Billions)', labels: ['Petrobras Contracts', 'Belo Monte Dam', 'Angra 3 Nuclear Plant', 'Highway Projects', 'Political Party Funds'], scaleLabel: 'Amount in R$ Billions' },
-                    perception: { label1: 'Support for Investigation', label2: 'Believe it was Politically Biased', scaleLabel: 'Percentage (%)' }
+                    players: {
+                        label: "Individuals Implicated by Category",
+                        labels: ["Company Executives", "Politicians", "Money Dealers", "Public Officials"]
+                    },
+                    financials: {
+                        label: "Diverted Funds (R$ Billions)",
+                        labels: ["Petrobras Contracts", "Belo Monte Construction", "Angra 3 Plant", "Highway Projects", "Party Funds"],
+                        scaleLabel: "Amount in R$ Billions"
+                    },
+                    perception: {
+                        label1: "Support for the Investigation",
+                        label2: "Believes It Was Politically Biased",
+                        scaleLabel: "Percentage (%)"
+                    }
                 }
             }
         };
@@ -403,7 +447,9 @@
         function updateText(lang) {
             document.querySelectorAll('[data-lang-key]').forEach(el => {
                 const key = el.dataset.langKey;
-                if (translations[lang] && translations[lang][key]) {
+                if (key === 'referencesList') {
+                    el.innerHTML = translations[lang].referencesListContent;
+                } else if (translations[lang] && translations[lang][key]) {
                     el.innerHTML = translations[lang][key];
                 }
             });
