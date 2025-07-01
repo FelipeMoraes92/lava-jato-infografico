@@ -86,7 +86,7 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        #analysisModal, #shareToast {
+        #analysisModal {
             transition: opacity 0.3s ease;
         }
     </style>
@@ -185,7 +185,7 @@
                     <span class="bg-yellow-200 text-yellow-800 font-bold py-2 px-4 rounded-full">Peru 🇵🇪</span>
                     <span class="bg-yellow-200 text-yellow-800 font-bold py-2 px-4 rounded-full">Colômbia 🇨🇴</span>
                     <span class="bg-yellow-200 text-yellow-800 font-bold py-2 px-4 rounded-full">Venezuela 🇻🇪</span>
-                    <span class="bg-yellow-200 text-yellow-800 font-bold py-2 px-4 rounded-full">Panamá 🇵🇦</span>
+                    <span class="bg-yellow-200 text-yellow-800 font-bold py-2 px-4 rounded-full">Panamá �🇦</span>
                     <span class="bg-yellow-200 text-yellow-800 font-bold py-2 px-4 rounded-full">Argentina 🇦🇷</span>
                     <span class="bg-yellow-200 text-yellow-800 font-bold py-2 px-4 rounded-full">Angola 🇦🇴</span>
                     <span class="bg-yellow-200 text-yellow-800 font-bold py-2 px-4 rounded-full">México 🇲🇽</span>
@@ -201,8 +201,7 @@
         </main>
         
         <footer class="text-center mt-12 pt-8 border-t border-gray-300">
-            <p class="text-gray-500 mb-4" data-lang-key="footerText"></p>
-            <button id="shareBtn" class="action-btn" data-lang-key="shareButton"></button>
+            <p class="text-gray-500" data-lang-key="footerText"></p>
         </footer>
 
     </div>
@@ -213,12 +212,8 @@
                 <h3 class="text-2xl font-bold" data-lang-key="modalTitle"></h3>
                 <button id="closeModalBtn" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
             </div>
-            <div id="analysisContent"></div>
+            <div id="analysisContent" class="text-left"></div>
         </div>
-    </div>
-
-    <div id="shareToast" class="fixed bottom-10 right-10 bg-gray-900 text-white py-2 px-5 rounded-lg shadow-lg opacity-0 pointer-events-none">
-        <span data-lang-key="toastText"></span>
     </div>
 
     <script>
@@ -235,8 +230,8 @@
                 introKPISubtext: "(Valor aproximado estimado por procuradores federais)",
                 playersTitle: "Os Atores Principais",
                 playersParagraph1: "A investigação implicou uma vasta gama de indivíduos em diferentes setores. Políticos de múltiplos partidos foram acusados de aceitar propinas em troca de contratos superfaturados com empreiteiras. Executivos de empresas orquestraram os esquemas, enquanto doleiros ajudavam a ocultar os fundos ilícitos.",
-                playersParagraph2: "O gráfico ao lado ilustra a composição dos indivíduos formalmente acusados durante as fases de pico da investigação. Clique no botão abaixo para uma análise mais profunda gerada por IA.",
-                playersButton: "✨ Gerar Análise Aprofundada",
+                playersParagraph2: "O gráfico ao lado ilustra a composição dos indivíduos formalmente acusados durante as fases de pico da investigação. Clique no botão abaixo para uma análise mais profunda.",
+                playersButton: "✨ Ler Análise",
                 timelineTitle: "Uma Linha do Tempo Decisiva",
                 timeline1: "A Operação Lava Jato é oficialmente lançada.",
                 timeline2: "Primeira onda de prisões de executivos de grandes construtoras.",
@@ -251,27 +246,16 @@
                 internationalTitle: "Além do Brasil: Um Escândalo Continental",
                 internationalParagraph: "Os esquemas, especialmente os da Odebrecht, não se limitaram ao Brasil, desencadeando investigações em toda a América Latina e África.",
                 legacyTitle: "O Legado da Operação",
-                legacyParagraph: "O impacto da Lava Jato é vasto e controverso. Para obter uma perspectiva equilibrada sobre suas consequências, clique no botão para gerar um resumo com a tecnologia Gemini.",
-                legacyButton: "✨ Resumir o Legado",
+                legacyParagraph: "O impacto da Lava Jato é vasto e controverso. Para obter uma perspectiva equilibrada sobre suas consequências, clique no botão para ler um resumo.",
+                legacyButton: "✨ Ler Resumo do Legado",
                 footerText: "Infográfico criado para fins ilustrativos. Os dados são representativos e sintetizados de relatórios públicos sobre a Operação Lava Jato.",
-                shareButton: "Compartilhar",
-                modalTitle: "Análise Gerada por IA",
-                toastText: "Link copiado para a área de transferência!",
+                modalTitle: "Análise dos Atores",
+                analysisText: `Com base nos dados fornecidos (Executivos de Empresas: 45%, Políticos: 35%, Doleiros: 15%, Funcionários Públicos: 5%), a análise concisa é a seguinte:<br><br><strong>Análise da Distribuição dos Acusados na Lava Jato: O Nexus Corporativo-Político</strong><br><br>Os dados sobre a distribuição dos acusados na Operação Lava Jato revelam a essência do escândalo que marcou o Brasil: a forte interconexão e dependência mútua entre as esferas corporativa e política na prática da corrupção.<br><br>Com <strong>45% dos acusados sendo executivos de empresas</strong> e <strong>35% políticos</strong>, fica evidente que a Lava Jato desnudou, acima de tudo, um esquema sistêmico onde o financiamento ilegal (e as propinas) por parte do setor privado alimentava o caixa da política (partidos e indivíduos), em troca de favores como contratos superfaturados, legislações específicas e proteção. Os executivos representam o lado que fornecia os recursos ilícitos, enquanto os políticos constituíam o elo no poder público que facilitava e recebia.<br><br>A presença significativa de <strong>doleiros (15%)</strong> sublinha a sofisticação da lavagem de dinheiro e da movimentação financeira ilegal necessária para operacionalizar esse esquema. Eles eram os arquitetos financeiros que permitiam que o dinheiro saísse das empresas, passasse por contas offshore e chegasse aos destinatários finais sem deixar rastros óbvios.<br><br>A participação de <strong>funcionários públicos (5%)</strong> indica que a corrupção não estava restrita aos altos escalões políticos, mas também envolvia agentes dentro da estrutura estatal, possivelmente em papéis técnicos ou administrativos, cooptados para facilitar ou ignorar as ilicitudes em processos como licitações e fiscalização.<br><br>Em suma, esta distribuição de acusados aponta para um modelo de corrupção profundamente enraizado que não era apenas estatal ou apenas empresarial, mas sim um <strong>pacto corrupto e bidirecional</strong> entre os grandes interesses econômicos e o poder político. A Lava Jato, através desses números, demonstra que a dinâmica central do escândalo foi a simbiose ilícita entre grandes corporações e a classe política em busca de benefícios mútuos às custas do Estado e da sociedade.`,
+                legacyText: `Como historiador especializado no Brasil moderno, a Operação Lava Jato (iniciada em 2014) apresenta um legado intrincado e multifacetado, que exige uma análise cuidadosa e equilibrada.<br><br><strong>Sucessos no Combate à Corrupção:</strong><br><br>Um dos aspectos inegáveis do legado da Lava Jato é seu sucesso sem precedentes em desvendar e punir esquemas de corrupção em larga escala no Brasil. A operação revelou a profundidade e a sofisticação de práticas corruptas envolvendo empresas estatais (principalmente a Petrobras), grandes empreiteiras e o sistema político em diversos níveis. Utilizando ferramentas como a delação premiada e a cooperação internacional, procuradores e juízes obtiveram confissões, recuperaram bilhões de reais desviados e levaram à condenação de figuras proeminentes da política e do empresariado. Nesse sentido, a Lava Jato elevou o nível de conscientização pública sobre a corrupção e demonstrou a possibilidade de responsabilização de poderosos, um feito raro na história brasileira recente.<br><br><strong>Controvérsias sobre Métodos e Ativismo Judicial:</strong><br><br>Por outro lado, a operação gerou controvérsias substanciais quanto aos seus métodos e à percepção de ativismo judicial. Críticos apontam o uso extensivo e, por vezes, questionável de prisões preventivas prolongadas como forma de obter delações. O vazamento seletivo de informações para a mídia também foi uma tática frequentemente criticada, sob o argumento de pré-julgar acusados e comprometer o devido processo legal. A principal controvérsia, no entanto, reside nas acusações de ativismo judicial e parcialidade, especialmente direcionadas ao então juiz Sergio Moro. Decisões como a divulgação de áudios telefônicos envolvendo a então Presidente da República e a condução coercitiva do ex-Presidente Lula, além de sentenças posteriormente anuladas pelo Supremo Tribunal Federal por incompetência de foro ou suspeição, levantaram sérias preocupações sobre o respeito às garantias individuais, ao devido processo legal e à imparcialidade do sistema de justiça. Argumenta-se que, no ímpeto de combater a corrupção, a operação por vezes excedeu os limites de sua atuação legal, entrando em terreno político e fragilizando a própria estrutura jurídica que deveria defender.<br><br><strong>Impacto Político e Econômico a Longo Prazo:</strong><br><br>O impacto político da Lava Jato foi sísmico. A operação contribuiu para a desestabilização de partidos tradicionais, a queda de figuras políticas importantes (inclusive o encarceramento de um ex-presidente) e um profundo ceticismo da população em relação à classe política. Esse cenário foi um fator relevante para a ascensão de forças anti-establishment e a polarização política extrema que marcou os anos seguintes.<br><br>Economicamente, o legado é mais complexo e debatido. A operação expôs práticas que distorciam o mercado e prejudicavam a concorrência. No entanto, a forma como a Lava Jato atingiu grandes empresas, especialmente nos setores de construção civil e óleo e gás, levou à paralisação de obras, perda de empregos e uma significativa redução do investimento privado, contribuindo para a recessão econômica e a instabilidade. Empresas inteiras, que empregavam milhares de pessoas, foram severamente impactadas, por vezes de forma irreversível, sem que mecanismos eficazes para punir indivíduos sem destruir as pessoas jurídicas estivessem plenamente desenvolvidos ou aplicados.<br><br><strong>Conclusão:</strong><br><br>Em suma, o legado da Operação Lava Jato é profundamente ambivalente. Por um lado, foi um marco no combate à corrupção sistêmica no Brasil, expondo e punindo práticas até então tratadas com impunidade e aumentando a conscientização pública. Por outro, seus métodos e a percepção de ativismo judicial suscitaram sérias preocupações sobre o respeito ao Estado de Direito e às garantias democráticas, gerando um clima de instabilidade política e econômica cujas consequências se estendem até hoje. Do ponto de vista histórico, a Lava Jato representa um período de intensa crise institucional que reconfigurou o cenário político e social brasileiro, cujos efeitos a longo prazo ainda estão em processo de desdobramento e análise.`,
                 charts: {
-                    players: {
-                        label: 'Indivíduos Implicados por Categoria',
-                        labels: ['Executivos de Empresas', 'Políticos', 'Doleiros', 'Funcionários Públicos']
-                    },
-                    financials: {
-                        label: 'Fundos Desviados (R$ Bilhões)',
-                        labels: ['Contratos Petrobras', 'Construção Belo Monte', 'Usina Angra 3', 'Projetos Rodoviários', 'Fundos Partidários'],
-                        scaleLabel: 'Valor em R$ Bilhões'
-                    },
-                    perception: {
-                        label1: 'Apoio à Investigação',
-                        label2: 'Acredita que foi Politicamente Viesada',
-                        scaleLabel: 'Porcentagem (%)'
-                    }
+                    players: { label: 'Indivíduos Implicados por Categoria', labels: ['Executivos de Empresas', 'Políticos', 'Doleiros', 'Funcionários Públicos'] },
+                    financials: { label: 'Fundos Desviados (R$ Bilhões)', labels: ['Contratos Petrobras', 'Construção Belo Monte', 'Usina Angra 3', 'Projetos Rodoviários', 'Fundos Partidários'], scaleLabel: 'Valor em R$ Bilhões' },
+                    perception: { label1: 'Apoio à Investigação', label2: 'Acredita que foi Politicamente Viesada', scaleLabel: 'Porcentagem (%)' }
                 }
             },
             en: {
@@ -283,8 +267,8 @@
                 introKPISubtext: "(Approximate value as estimated by federal prosecutors)",
                 playersTitle: "The Key Players",
                 playersParagraph1: "The investigation implicated a wide array of individuals across different sectors. Politicians from multiple parties were accused of accepting bribes in exchange for awarding contracts to construction companies at inflated prices. Business executives orchestrated the schemes, while money launderers helped hide the illicit funds.",
-                playersParagraph2: "The chart to the right illustrates the composition of the individuals formally charged during the investigation's peak phases. Click the button below for a deeper analysis generated by AI.",
-                playersButton: "✨ Generate In-Depth Analysis",
+                playersParagraph2: "The chart to the right illustrates the composition of the individuals formally charged during the investigation's peak phases. Click the button below for a deeper analysis.",
+                playersButton: "✨ Read Analysis",
                 timelineTitle: "A Nation-Defining Timeline",
                 timeline1: "Operation Car Wash is officially launched.",
                 timeline2: "The first wave of arrests targets executives from Brazil's largest construction companies.",
@@ -299,27 +283,16 @@
                 internationalTitle: "Beyond Brazil: A Continental Scandal",
                 internationalParagraph: "The schemes, particularly those by Odebrecht, were not confined to Brazil, triggering investigations across Latin America and Africa.",
                 legacyTitle: "The Operation's Legacy",
-                legacyParagraph: "The impact of Operation Car Wash is vast and controversial. For a balanced perspective on its consequences, click the button to generate a summary with Gemini technology.",
-                legacyButton: "✨ Summarize the Legacy",
+                legacyParagraph: "The impact of Operation Car Wash is vast and controversial. For a balanced perspective on its consequences, click the button to read a summary.",
+                legacyButton: "✨ Read Legacy Summary",
                 footerText: "Infographic created for illustrative purposes. Data is representative and synthesized from public reports on Operation Car Wash.",
-                shareButton: "Share",
-                modalTitle: "AI-Generated Analysis",
-                toastText: "Link copied to clipboard!",
+                modalTitle: "Analysis of the Players",
+                analysisText: `Based on the provided data (Business Executives: 45%, Politicians: 35%, Money Launderers: 15%, Public Officials: 5%), the concise analysis is as follows:<br><br><strong>Analysis of the Distribution of the Accused in Car Wash: The Corporate-Political Nexus</strong><br><br>The data on the distribution of the accused in Operation Car Wash reveals the essence of the scandal that marked Brazil: the strong interconnection and mutual dependence between the corporate and political spheres in the practice of corruption.<br><br>With <strong>45% of the accused being business executives</strong> and <strong>35% politicians</strong>, it is clear that Car Wash primarily uncovered a systemic scheme where illegal financing (and bribes) from the private sector fueled the coffers of politics (parties and individuals), in exchange for favors such as inflated contracts, specific legislation, and protection. The executives represent the side that provided the illicit resources, while the politicians constituted the link in public power that facilitated and received them.<br><br>The significant presence of <strong>money launderers (15%)</strong> underscores the sophistication of the money laundering and illegal financial transactions necessary to operate this scheme. They were the financial architects who allowed money to leave companies, pass through offshore accounts, and reach the final recipients without leaving obvious traces.<br><br>The participation of <strong>public officials (5%)</strong> indicates that corruption was not restricted to the high political echelons but also involved agents within the state structure, possibly in technical or administrative roles, co-opted to facilitate or ignore illegalities in processes such as bidding and oversight.<br><br>In summary, this distribution of the accused points to a deeply rooted model of corruption that was not just state-run or just corporate, but rather a <strong>corrupt and bidirectional pact</strong> between major economic interests and political power. Car Wash, through these numbers, demonstrates that the central dynamic of the scandal was the illicit symbiosis between large corporations and the political class in search of mutual benefits at the expense of the State and society.`,
+                legacyText: `As a historian specializing in modern Brazil, Operation Car Wash (initiated in 2014) presents an intricate and multifaceted legacy that requires careful and balanced analysis.<br><br><strong>Successes in Combating Corruption:</strong><br><br>One of the undeniable aspects of the Car Wash legacy is its unprecedented success in uncovering and punishing large-scale corruption schemes in Brazil. The operation revealed the depth and sophistication of corrupt practices involving state-owned enterprises (mainly Petrobras), large construction companies, and the political system at various levels. Using tools such as plea bargains and international cooperation, prosecutors and judges obtained confessions, recovered billions of reais in diverted funds, and led to the conviction of prominent figures in politics and business. In this sense, Car Wash raised the level of public awareness about corruption and demonstrated the possibility of holding the powerful accountable, a rare feat in recent Brazilian history.<br><br><strong>Controversies over Methods and Judicial Activism:</strong><br><br>On the other hand, the operation generated substantial controversies regarding its methods and the perception of judicial activism. Critics point to the extensive and sometimes questionable use of prolonged pre-trial detentions as a means of obtaining plea bargains. The selective leaking of information to the media was also a frequently criticized tactic, on the grounds of pre-judging the accused and compromising due process. The main controversy, however, lies in accusations of judicial activism and partiality, especially directed at then-judge Sergio Moro. Decisions such as the release of phone recordings involving the then-President of the Republic and the coercive questioning of former President Lula, as well as sentences later annulled by the Supreme Federal Court for lack of jurisdiction or suspicion, raised serious concerns about respect for individual guarantees, due process, and the impartiality of the justice system. It is argued that, in the impetus to combat corruption, the operation sometimes exceeded the limits of its legal authority, entering political territory and weakening the very legal structure it was supposed to defend.<br><br><strong>Long-Term Political and Economic Impact:</strong><br><br>The political impact of Car Wash was seismic. The operation contributed to the destabilization of traditional parties, the downfall of important political figures (including the imprisonment of a former president), and a deep public skepticism towards the political class. This scenario was a relevant factor in the rise of anti-establishment forces and the extreme political polarization that marked the following years.<br><br>Economically, the legacy is more complex and debated. The operation exposed practices that distorted the market and harmed competition. However, the way Car Wash affected large companies, especially in the construction and oil and gas sectors, led to the paralysis of works, job losses, and a significant reduction in private investment, contributing to the economic recession and instability. Entire companies, which employed thousands of people, were severely impacted, sometimes irreversibly, without effective mechanisms to punish individuals without destroying the legal entities being fully developed or applied.<br><br><strong>Conclusion:</strong><br><br>In short, the legacy of Operation Car Wash is profoundly ambivalent. On one hand, it was a milestone in the fight against systemic corruption in Brazil, exposing and punishing practices previously treated with impunity and increasing public awareness. On the other, its methods and the perception of judicial activism raised serious concerns about respect for the rule of law and democratic guarantees, generating a climate of political and economic instability whose consequences extend to this day. From a historical perspective, Car Wash represents a period of intense institutional crisis that reconfigured the Brazilian political and social landscape, whose long-term effects are still unfolding and being analyzed.`,
                 charts: {
-                    players: {
-                        label: 'Implicated Individuals by Category',
-                        labels: ['Business Executives', 'Politicians', 'Money Launderers', 'Public Officials']
-                    },
-                    financials: {
-                        label: 'Diverted Funds (R$ Billions)',
-                        labels: ['Petrobras Contracts', 'Belo Monte Dam', 'Angra 3 Nuclear Plant', 'Highway Projects', 'Political Party Funds'],
-                        scaleLabel: 'Amount in R$ Billions'
-                    },
-                    perception: {
-                        label1: 'Support for Investigation',
-                        label2: 'Believe it was Politically Biased',
-                        scaleLabel: 'Percentage (%)'
-                    }
+                    players: { label: 'Implicated Individuals by Category', labels: ['Business Executives', 'Politicians', 'Money Launderers', 'Public Officials'] },
+                    financials: { label: 'Diverted Funds (R$ Billions)', labels: ['Petrobras Contracts', 'Belo Monte Dam', 'Angra 3 Nuclear Plant', 'Highway Projects', 'Political Party Funds'], scaleLabel: 'Amount in R$ Billions' },
+                    perception: { label1: 'Support for Investigation', label2: 'Believe it was Politically Biased', scaleLabel: 'Percentage (%)' }
                 }
             }
         };
@@ -444,52 +417,24 @@
             renderCharts(lang);
             document.getElementById('lang-pt').classList.toggle('active', lang === 'pt');
             document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-            // Clear previous AI responses when language changes
             document.getElementById('legacyResponse').style.display = 'none';
             document.getElementById('legacyResponse').innerHTML = '';
         }
 
-        const callGeminiAPI = async (prompt) => {
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-            const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (!response.ok) throw new Error(`API Error: ${response.statusText}`);
-                const result = await response.json();
-                if (result.candidates && result.candidates[0]?.content.parts[0]?.text) {
-                    return result.candidates[0].content.parts[0].text;
-                } else {
-                    return currentLanguage === 'pt' ? "Não foi possível obter uma resposta da IA." : "Could not get a response from the AI.";
-                }
-            } catch (error) {
-                console.error("Error calling Gemini API:", error);
-                return currentLanguage === 'pt' ? "Ocorreu um erro ao contatar a IA." : "An error occurred while contacting the AI.";
-            }
-        };
-        
         document.getElementById('lang-pt').addEventListener('click', () => setLanguage('pt'));
         document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
 
         const analysisModal = document.getElementById('analysisModal');
         const analysisContent = document.getElementById('analysisContent');
         
-        document.getElementById('analyzePlayersBtn').addEventListener('click', async () => {
+        document.getElementById('analyzePlayersBtn').addEventListener('click', () => {
             analysisModal.classList.remove('opacity-0', 'pointer-events-none');
             analysisContent.innerHTML = '<div class="loader"></div>';
             
-            const chartData = translations[currentLanguage].charts.players;
-            const dataString = chartData.labels.map((label, index) => `${label}: ${[45, 35, 15, 5][index]}%`).join(', ');
-            const prompt = currentLanguage === 'pt'
-                ? `Você é um analista político. Com base nestes dados sobre os acusados na Operação Lava Jato — ${dataString} — forneça uma análise concisa. Explique o significado desta distribuição e a relação entre as esferas corporativa e política no escândalo. Mantenha o tom jornalístico e analítico. Responda em português do Brasil.`
-                : `You are a political analyst. Based on this data about individuals charged in Brazil's Operation Car Wash — ${dataString} — provide a concise analysis. Explain the significance of this distribution and the relationship between the corporate and political spheres in the scandal. Keep the tone journalistic and analytical. Respond in English.`;
-            
-            const responseText = await callGeminiAPI(prompt);
-            analysisContent.innerHTML = responseText.replace(/\n/g, '<br>');
+            setTimeout(() => {
+                const responseText = translations[currentLanguage].analysisText;
+                analysisContent.innerHTML = responseText;
+            }, 200);
         });
 
         document.getElementById('closeModalBtn').addEventListener('click', () => {
@@ -497,32 +442,20 @@
         });
 
         const legacyResponseContainer = document.getElementById('legacyResponse');
-        document.getElementById('summarizeLegacyBtn').addEventListener('click', async (e) => {
+        document.getElementById('summarizeLegacyBtn').addEventListener('click', (e) => {
             legacyResponseContainer.style.display = 'block';
             legacyResponseContainer.innerHTML = '<div class="loader"></div>';
             e.target.disabled = true;
 
-            const prompt = currentLanguage === 'pt'
-                ? `Você é um historiador especializado no Brasil moderno. Forneça um resumo conciso do complexo legado da Operação Lava Jato. Discuta seus sucessos no combate à corrupção, as controvérsias sobre seus métodos (como o ativismo judicial) e seu impacto político e econômico a longo prazo no Brasil. Mantenha o tom equilibrado e acadêmico. Responda em português do Brasil.`
-                : `You are a historian specializing in modern Brazil. Provide a concise summary of the complex legacy of Operation Car Wash. Discuss its successes in combating corruption, the controversies surrounding its methods (like judicial overreach), and its long-term political and economic impact on Brazil. Keep the tone balanced and academic. Respond in English.`;
-
-            const responseText = await callGeminiAPI(prompt);
-            legacyResponseContainer.innerHTML = responseText.replace(/\n/g, '<br>');
-            e.target.disabled = false;
-        });
-
-        document.getElementById('shareBtn').addEventListener('click', () => {
-            const toast = document.getElementById('shareToast');
-            // In a real scenario, you would copy window.location.href
-            // For this environment, we'll just show the toast
-            toast.classList.remove('opacity-0');
             setTimeout(() => {
-                toast.classList.add('opacity-0');
-            }, 3000);
+                const responseText = translations[currentLanguage].legacyText;
+                legacyResponseContainer.innerHTML = responseText;
+                e.target.disabled = false;
+            }, 200);
         });
 
-        // Initial load
         setLanguage('pt');
     </script>
 </body>
 </html>
+�
