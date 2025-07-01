@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operação Lava Jato: Um Infográfico Interativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .kpi-number {
+            font-weight: 900;
+            font-size: 5rem;
+            line-height: 1;
+            color: #FF4E50;
+        }
+        .timeline-item {
+            border-left: 3px solid #FC913A;
+        }
+        .timeline-item:before {
+            content: '';
+            display: block;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            background-color: #FC913A;
+            border: 3px solid #f0f2f5;
+            position: absolute;
+            left: -0.7rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .action-btn {
+            background-color: #FF4E50;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .action-btn:hover {
+            background-color: #e04244;
+        }
+        .lang-btn {
+            background-color: #e2e8f0;
+            color: #4a5568;
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        .lang-btn.active {
+            background-color: #FF4E50;
+            color: white;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #FF4E50;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #analysisModal, #shareToast {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="relative text-center mb-12">
+            <div class="absolute top-0 right-0 flex space-x-2">
+                <button id="lang-pt" class="lang-btn">PT</button>
+                <button id="lang-en" class="lang-btn">EN</button>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black text-gray-900 mb-2" data-lang-key="mainTitle"></h1>
+            <p class="text-lg md:text-xl text-gray-600" data-lang-key="mainSubtitle"></p>
+        </header>
+
+        <main class="space-y-12">
+
+            <section id="intro" class="text-center bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-4" data-lang-key="introTitle"></h2>
+                <p class="max-w-3xl mx-auto text-gray-600 mb-6" data-lang-key="introParagraph"></p>
+                <div class="kpi-number">R$6.2 Bilhões</div>
+                <p class="text-xl font-bold text-gray-700 mt-2" data-lang-key="introKPI"></p>
+                <p class="text-sm text-gray-500 mt-1" data-lang-key="introKPISubtext"></p>
+            </section>
+            
+            <section id="players" class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-4" data-lang-key="playersTitle"></h2>
+                        <p class="text-gray-600 mb-4" data-lang-key="playersParagraph1"></p>
+                        <p class="text-gray-600 mb-6" data-lang-key="playersParagraph2"></p>
+                        <button id="analyzePlayersBtn" class="action-btn" data-lang-key="playersButton"></button>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="playersChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="timeline" class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                 <h2 class="text-3xl font-bold mb-8 text-center" data-lang-key="timelineTitle"></h2>
+                 <div class="relative max-w-4xl mx-auto">
+                    <div class="space-y-10">
+                        <div class="relative pl-10 md:pl-12 py-4 timeline-item">
+                            <h3 class="font-bold text-xl">Março 2014</h3>
+                            <p class="text-gray-600" data-lang-key="timeline1"></p>
+                        </div>
+                        <div class="relative pl-10 md:pl-12 py-4 timeline-item">
+                            <h3 class="font-bold text-xl">Novembro 2014</h3>
+                            <p class="text-gray-600" data-lang-key="timeline2"></p>
+                        </div>
+                        <div class="relative pl-10 md:pl-12 py-4 timeline-item">
+                            <h3 class="font-bold text-xl">Março 2016</h3>
+                            <p class="text-gray-600" data-lang-key="timeline3"></p>
+                        </div>
+                        <div class="relative pl-10 md:pl-12 py-4 timeline-item">
+                            <h3 class="font-bold text-xl">Agosto 2016</h3>
+                            <p class="text-gray-600" data-lang-key="timeline4"></p>
+                        </div>
+                        <div class="relative pl-10 md:pl-12 py-4 timeline-item">
+                            <h3 class="font-bold text-xl">Julho 2017</h3>
+                            <p class="text-gray-600" data-lang-key="timeline5"></p>
+                        </div>
+                         <div class="relative pl-10 md:pl-12 py-4 timeline-item">
+                            <h3 class="font-bold text-xl">Fevereiro 2021</h3>
+                            <p class="text-gray-600" data-lang-key="timeline6"></p>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <section id="financials" class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h2 class="text-3xl font-bold mb-4" data-lang-key="financialsTitle"></h2>
+                    <p class="text-gray-600 mb-6" data-lang-key="financialsParagraph"></p>
+                    <div class="chart-container h-96 md:h-[450px]">
+                        <canvas id="financialsChart"></canvas>
+                    </div>
+                </section>
+
+                <section id="perception" class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <h2 class="text-3xl font-bold mb-4" data-lang-key="perceptionTitle"></h2>
+                    <p class="text-gray-600 mb-6" data-lang-key="perceptionParagraph"></p>
+                    <div class="chart-container h-96 md:h-[450px]">
+                        <canvas id="perceptionChart"></canvas>
+                    </div>
+                </section>
+            </div>
+
+            <section id="international" class="text-center bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-4" data-lang-key="internationalTitle"></h2>
+                <p class="max-w-3xl mx-auto text-gray-600 mb-8" data-lang-key="internationalParagraph"></p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="bg-yellow-200 text-yellow-800 font-bold py-2 px-4 rounded-full">Peru 🇵🇪</span>
+                    <span class="bg-yellow-200 text-yellow-800 font-bold py-2 px-4 rounded-full">Colômbia 🇨🇴</span>
+                    <span class="bg-yellow-200 text-yellow-800 font-bold py-2 px-4 rounded-full">Venezuela 🇻🇪</span>
+                    <span class="bg-yellow-200 text-yellow-800 font-bold py-2 px-4 rounded-full">Panamá 🇵🇦</span>
+                    <span class="bg-yellow-200 text-yellow-800 font-bold py-2 px-4 rounded-full">Argentina 🇦🇷</span>
+                    <span class="bg-yellow-200 text-yellow-800 font-bold py-2 px-4 rounded-full">Angola 🇦🇴</span>
+                    <span class="bg-yellow-200 text-yellow-800 font-bold py-2 px-4 rounded-full">México 🇲🇽</span>
+                </div>
+            </section>
+
+            <section id="legacy" class="text-center bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-4" data-lang-key="legacyTitle"></h2>
+                <p class="max-w-3xl mx-auto text-gray-600 mb-6" data-lang-key="legacyParagraph"></p>
+                <button id="summarizeLegacyBtn" class="action-btn" data-lang-key="legacyButton"></button>
+                <div id="legacyResponse" class="mt-6 text-left max-w-3xl mx-auto p-4 bg-gray-50 rounded-lg" style="display: none;"></div>
+            </section>
+        </main>
+        
+        <footer class="text-center mt-12 pt-8 border-t border-gray-300">
+            <p class="text-gray-500 mb-4" data-lang-key="footerText"></p>
+            <button id="shareBtn" class="action-btn" data-lang-key="shareButton"></button>
+        </footer>
+
+    </div>
+
+    <div id="analysisModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none">
+        <div class="bg-white rounded-lg shadow-2xl p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold" data-lang-key="modalTitle"></h3>
+                <button id="closeModalBtn" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+            </div>
+            <div id="analysisContent"></div>
+        </div>
+    </div>
+
+    <div id="shareToast" class="fixed bottom-10 right-10 bg-gray-900 text-white py-2 px-5 rounded-lg shadow-lg opacity-0 pointer-events-none">
+        <span data-lang-key="toastText"></span>
+    </div>
+
+    <script>
+        let currentLanguage = 'pt';
+        let charts = {};
+
+        const translations = {
+            pt: {
+                mainTitle: "OPERAÇÃO LAVA JATO",
+                mainSubtitle: "Dissecando o Escândalo que Abalou uma Nação",
+                introTitle: "O Epicentro: Uma Escala de Corrupção Assombrosa",
+                introParagraph: "O que começou como uma investigação de lavagem de dinheiro em 2014 evoluiu para a maior investigação de corrupção da história do Brasil, descobrindo um sistema de propinas profundamente enraizado envolvendo a estatal Petrobras, grandes construtoras e políticos de alto escalão.",
+                introKPI: "em Propinas Descobertas Apenas na Petrobras",
+                introKPISubtext: "(Valor aproximado estimado por procuradores federais)",
+                playersTitle: "Os Atores Principais",
+                playersParagraph1: "A investigação implicou uma vasta gama de indivíduos em diferentes setores. Políticos de múltiplos partidos foram acusados de aceitar propinas em troca de contratos superfaturados com empreiteiras. Executivos de empresas orquestraram os esquemas, enquanto doleiros ajudavam a ocultar os fundos ilícitos.",
+                playersParagraph2: "O gráfico ao lado ilustra a composição dos indivíduos formalmente acusados durante as fases de pico da investigação. Clique no botão abaixo para uma análise mais profunda gerada por IA.",
+                playersButton: "✨ Gerar Análise Aprofundada",
+                timelineTitle: "Uma Linha do Tempo Decisiva",
+                timeline1: "A Operação Lava Jato é oficialmente lançada.",
+                timeline2: "Primeira onda de prisões de executivos de grandes construtoras.",
+                timeline3: "Ex-presidente Lula é levado para depor, mostrando o alcance da investigação.",
+                timeline4: "Presidente Dilma Rousseff sofre impeachment, processo parcialmente alimentado pela instabilidade política do escândalo.",
+                timeline5: "Ex-presidente Lula é condenado por corrupção e lavagem de dinheiro.",
+                timeline6: "A força-tarefa principal em Curitiba é oficialmente desfeita.",
+                financialsTitle: "O Prejuízo Financeiro",
+                financialsParagraph: "Enquanto a Petrobras era o núcleo, a corrupção se estendeu a vários outros projetos estatais. Este gráfico de barras mostra os fundos desviados em algumas das áreas mais afetadas.",
+                perceptionTitle: "Opinião Pública e Divisão",
+                perceptionParagraph: "Inicialmente, a investigação teve apoio público massivo. Com o tempo, à medida que se tornava mais politizada e seus métodos questionados, a opinião pública ficou mais dividida.",
+                internationalTitle: "Além do Brasil: Um Escândalo Continental",
+                internationalParagraph: "Os esquemas, especialmente os da Odebrecht, não se limitaram ao Brasil, desencadeando investigações em toda a América Latina e África.",
+                legacyTitle: "O Legado da Operação",
+                legacyParagraph: "O impacto da Lava Jato é vasto e controverso. Para obter uma perspectiva equilibrada sobre suas consequências, clique no botão para gerar um resumo com a tecnologia Gemini.",
+                legacyButton: "✨ Resumir o Legado",
+                footerText: "Infográfico criado para fins ilustrativos. Os dados são representativos e sintetizados de relatórios públicos sobre a Operação Lava Jato.",
+                shareButton: "Compartilhar",
+                modalTitle: "Análise Gerada por IA",
+                toastText: "Link copiado para a área de transferência!",
+                charts: {
+                    players: {
+                        label: 'Indivíduos Implicados por Categoria',
+                        labels: ['Executivos de Empresas', 'Políticos', 'Doleiros', 'Funcionários Públicos']
+                    },
+                    financials: {
+                        label: 'Fundos Desviados (R$ Bilhões)',
+                        labels: ['Contratos Petrobras', 'Construção Belo Monte', 'Usina Angra 3', 'Projetos Rodoviários', 'Fundos Partidários'],
+                        scaleLabel: 'Valor em R$ Bilhões'
+                    },
+                    perception: {
+                        label1: 'Apoio à Investigação',
+                        label2: 'Acredita que foi Politicamente Viesada',
+                        scaleLabel: 'Porcentagem (%)'
+                    }
+                }
+            },
+            en: {
+                mainTitle: "OPERATION CAR WASH",
+                mainSubtitle: "Dissecting the Scandal That Shook a Nation",
+                introTitle: "The Epicenter: A Staggering Scale of Corruption",
+                introParagraph: "What began as a money-laundering investigation in 2014 spiraled into Brazil's largest-ever corruption probe, uncovering a deeply entrenched system of kickbacks involving the state-run oil giant Petrobras, major construction firms, and high-level politicians.",
+                introKPI: "in Bribes Uncovered at Petrobras Alone",
+                introKPISubtext: "(Approximate value as estimated by federal prosecutors)",
+                playersTitle: "The Key Players",
+                playersParagraph1: "The investigation implicated a wide array of individuals across different sectors. Politicians from multiple parties were accused of accepting bribes in exchange for awarding contracts to construction companies at inflated prices. Business executives orchestrated the schemes, while money launderers helped hide the illicit funds.",
+                playersParagraph2: "The chart to the right illustrates the composition of the individuals formally charged during the investigation's peak phases. Click the button below for a deeper analysis generated by AI.",
+                playersButton: "✨ Generate In-Depth Analysis",
+                timelineTitle: "A Nation-Defining Timeline",
+                timeline1: "Operation Car Wash is officially launched.",
+                timeline2: "The first wave of arrests targets executives from Brazil's largest construction companies.",
+                timeline3: "Former President Lula is detained for questioning, signaling the probe's reach to the highest political levels.",
+                timeline4: "President Dilma Rousseff is impeached, a process partially fueled by the political instability created by the scandal.",
+                timeline5: "Former President Lula is convicted on corruption and money laundering charges.",
+                timeline6: "The main task force in Curitiba is officially disbanded.",
+                financialsTitle: "The Financial Toll",
+                financialsParagraph: "While Petrobras was the scheme's nucleus, the corruption extended to numerous other state-controlled projects. This bar chart shows the estimated funds diverted across some of the most affected areas.",
+                perceptionTitle: "Public Opinion & Division",
+                perceptionParagraph: "Initially, the investigation received overwhelming public support. Over time, as the probe became increasingly politicized and its methods questioned, public opinion grew more divided.",
+                internationalTitle: "Beyond Brazil: A Continental Scandal",
+                internationalParagraph: "The schemes, particularly those by Odebrecht, were not confined to Brazil, triggering investigations across Latin America and Africa.",
+                legacyTitle: "The Operation's Legacy",
+                legacyParagraph: "The impact of Operation Car Wash is vast and controversial. For a balanced perspective on its consequences, click the button to generate a summary with Gemini technology.",
+                legacyButton: "✨ Summarize the Legacy",
+                footerText: "Infographic created for illustrative purposes. Data is representative and synthesized from public reports on Operation Car Wash.",
+                shareButton: "Share",
+                modalTitle: "AI-Generated Analysis",
+                toastText: "Link copied to clipboard!",
+                charts: {
+                    players: {
+                        label: 'Implicated Individuals by Category',
+                        labels: ['Business Executives', 'Politicians', 'Money Launderers', 'Public Officials']
+                    },
+                    financials: {
+                        label: 'Diverted Funds (R$ Billions)',
+                        labels: ['Petrobras Contracts', 'Belo Monte Dam', 'Angra 3 Nuclear Plant', 'Highway Projects', 'Political Party Funds'],
+                        scaleLabel: 'Amount in R$ Billions'
+                    },
+                    perception: {
+                        label1: 'Support for Investigation',
+                        label2: 'Believe it was Politically Biased',
+                        scaleLabel: 'Percentage (%)'
+                    }
+                }
+            }
+        };
+
+        const vibrantPalette = {
+            red: '#FF4E50',
+            orange: '#FC913A',
+            yellow: '#F9D423',
+            lightYellow: '#EDE574',
+        };
+
+        const wrapLabel = (label, lang) => {
+            const maxLength = lang === 'en' ? 20 : 16;
+            if (typeof label !== 'string' || label.length <= maxLength) return label;
+            const words = label.split(' ');
+            let lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + ' ' + word).length > maxLength && currentLine.length > 0) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine += (currentLine.length > 0 ? ' ' : '') + word;
+                }
+            }
+            if (currentLine.length > 0) lines.push(currentLine);
+            return lines;
+        };
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            return Array.isArray(label) ? label.join(' ') : label;
+        };
+
+        function renderCharts(lang) {
+            Object.values(charts).forEach(chart => chart.destroy());
+
+            const chartTranslations = translations[lang].charts;
+            
+            const playersChartCtx = document.getElementById('playersChart').getContext('2d');
+            charts.players = new Chart(playersChartCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: chartTranslations.players.labels,
+                    datasets: [{
+                        label: chartTranslations.players.label,
+                        data: [45, 35, 15, 5],
+                        backgroundColor: [vibrantPalette.red, vibrantPalette.orange, vibrantPalette.yellow, vibrantPalette.lightYellow],
+                        borderColor: '#ffffff',
+                        borderWidth: 4,
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { title: tooltipTitleCallback }}}}
+            });
+
+            const financialsChartCtx = document.getElementById('financialsChart').getContext('2d');
+            charts.financials = new Chart(financialsChartCtx, {
+                type: 'bar',
+                data: {
+                    labels: chartTranslations.financials.labels.map(l => wrapLabel(l, lang)),
+                    datasets: [{
+                        label: chartTranslations.financials.label,
+                        data: [6.2, 5.5, 1.8, 1.2, 0.9],
+                        backgroundColor: vibrantPalette.orange,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { callbacks: { title: tooltipTitleCallback }}},
+                    scales: { x: { beginAtZero: true, title: { display: true, text: chartTranslations.financials.scaleLabel }}}
+                }
+            });
+
+            const perceptionChartCtx = document.getElementById('perceptionChart').getContext('2d');
+            charts.perception = new Chart(perceptionChartCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2015', '2016', '2017', '2018', '2019', '2020'],
+                    datasets: [
+                    {
+                        label: chartTranslations.perception.label1,
+                        data: [80, 85, 75, 60, 55, 50],
+                        borderColor: vibrantPalette.red,
+                        backgroundColor: 'rgba(255, 78, 80, 0.1)',
+                        fill: true, tension: 0.3,
+                    },
+                    {
+                        label: chartTranslations.perception.label2,
+                        data: [15, 18, 25, 40, 48, 52],
+                        borderColor: vibrantPalette.yellow,
+                        backgroundColor: 'rgba(249, 212, 35, 0.1)',
+                        fill: true, tension: 0.3,
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                     plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: { mode: 'index', intersect: false, callbacks: { title: tooltipTitleCallback }}
+                    },
+                    scales: { y: { beginAtZero: true, max: 100, title: { display: true, text: chartTranslations.perception.scaleLabel }}}
+                }
+            });
+        }
+
+        function updateText(lang) {
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.dataset.langKey;
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+            document.title = lang === 'pt' ? 'Operação Lava Jato: Um Infográfico Interativo' : 'Operation Car Wash: An Interactive Infographic';
+        }
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            updateText(lang);
+            renderCharts(lang);
+            document.getElementById('lang-pt').classList.toggle('active', lang === 'pt');
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+            // Clear previous AI responses when language changes
+            document.getElementById('legacyResponse').style.display = 'none';
+            document.getElementById('legacyResponse').innerHTML = '';
+        }
+
+        const callGeminiAPI = async (prompt) => {
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) throw new Error(`API Error: ${response.statusText}`);
+                const result = await response.json();
+                if (result.candidates && result.candidates[0]?.content.parts[0]?.text) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    return currentLanguage === 'pt' ? "Não foi possível obter uma resposta da IA." : "Could not get a response from the AI.";
+                }
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                return currentLanguage === 'pt' ? "Ocorreu um erro ao contatar a IA." : "An error occurred while contacting the AI.";
+            }
+        };
+        
+        document.getElementById('lang-pt').addEventListener('click', () => setLanguage('pt'));
+        document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
+
+        const analysisModal = document.getElementById('analysisModal');
+        const analysisContent = document.getElementById('analysisContent');
+        
+        document.getElementById('analyzePlayersBtn').addEventListener('click', async () => {
+            analysisModal.classList.remove('opacity-0', 'pointer-events-none');
+            analysisContent.innerHTML = '<div class="loader"></div>';
+            
+            const chartData = translations[currentLanguage].charts.players;
+            const dataString = chartData.labels.map((label, index) => `${label}: ${[45, 35, 15, 5][index]}%`).join(', ');
+            const prompt = currentLanguage === 'pt'
+                ? `Você é um analista político. Com base nestes dados sobre os acusados na Operação Lava Jato — ${dataString} — forneça uma análise concisa. Explique o significado desta distribuição e a relação entre as esferas corporativa e política no escândalo. Mantenha o tom jornalístico e analítico. Responda em português do Brasil.`
+                : `You are a political analyst. Based on this data about individuals charged in Brazil's Operation Car Wash — ${dataString} — provide a concise analysis. Explain the significance of this distribution and the relationship between the corporate and political spheres in the scandal. Keep the tone journalistic and analytical. Respond in English.`;
+            
+            const responseText = await callGeminiAPI(prompt);
+            analysisContent.innerHTML = responseText.replace(/\n/g, '<br>');
+        });
+
+        document.getElementById('closeModalBtn').addEventListener('click', () => {
+            analysisModal.classList.add('opacity-0', 'pointer-events-none');
+        });
+
+        const legacyResponseContainer = document.getElementById('legacyResponse');
+        document.getElementById('summarizeLegacyBtn').addEventListener('click', async (e) => {
+            legacyResponseContainer.style.display = 'block';
+            legacyResponseContainer.innerHTML = '<div class="loader"></div>';
+            e.target.disabled = true;
+
+            const prompt = currentLanguage === 'pt'
+                ? `Você é um historiador especializado no Brasil moderno. Forneça um resumo conciso do complexo legado da Operação Lava Jato. Discuta seus sucessos no combate à corrupção, as controvérsias sobre seus métodos (como o ativismo judicial) e seu impacto político e econômico a longo prazo no Brasil. Mantenha o tom equilibrado e acadêmico. Responda em português do Brasil.`
+                : `You are a historian specializing in modern Brazil. Provide a concise summary of the complex legacy of Operation Car Wash. Discuss its successes in combating corruption, the controversies surrounding its methods (like judicial overreach), and its long-term political and economic impact on Brazil. Keep the tone balanced and academic. Respond in English.`;
+
+            const responseText = await callGeminiAPI(prompt);
+            legacyResponseContainer.innerHTML = responseText.replace(/\n/g, '<br>');
+            e.target.disabled = false;
+        });
+
+        document.getElementById('shareBtn').addEventListener('click', () => {
+            const toast = document.getElementById('shareToast');
+            // In a real scenario, you would copy window.location.href
+            // For this environment, we'll just show the toast
+            toast.classList.remove('opacity-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 3000);
+        });
+
+        // Initial load
+        setLanguage('pt');
+    </script>
+</body>
+</html>
